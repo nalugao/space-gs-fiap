@@ -1,7 +1,14 @@
+import './home.css'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <main>
+        <section className='home-page'>
+            <div>
+                hello
+            </div>
+        </section>
+    </main>
   )
 }
 

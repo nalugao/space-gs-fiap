@@ -1,20 +1,25 @@
-import RefHero from '../components/referencias/RefHero'
-import RefSection from '../components/referencias/RefSection'
-import './referencias.css'
-import { SECTIONS } from "../data/refData";
-
+import RefHero from "../components/referencias/RefHero";
+import RefSection from "../components/referencias/RefSection";
+import { useLanguage } from "../components/context/LanguageContext";
+import { getSections } from "../data/refData";
+import "./referencias.css";
 
 const Referencias = () => {
+  const { language } = useLanguage();
+
+  const sections = getSections(language);
+
   return (
     <div className="page">
       <RefHero />
+
       <div className="content">
-        {SECTIONS.map((section) => (
+        {sections.map((section) => (
           <RefSection key={section.id} section={section} />
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Referencias
+export default Referencias;

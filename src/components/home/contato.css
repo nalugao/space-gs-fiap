@@ -1,0 +1,29 @@
+.contRow {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.contCard {
+  flex: 1;
+  min-width: 200px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cardTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.cardDesc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  line-height: 1.5;
+}

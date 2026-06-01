@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import './referencias.css'
+import './referenciasSection.css'
 
 const REFS = [
   {

@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
 import { saveLead, isValidEmail } from "../../data/formStorage";
 
 export default function NewsletterForm() {
+  const { t } = useLanguage();
+
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -28,17 +31,9 @@ export default function NewsletterForm() {
   function validateForm() {
     const newErrors = {};
 
-    if (!formData.nome.trim()) {
-      newErrors.nome = true;
-    }
-
-    if (!formData.email.trim() || !isValidEmail(formData.email)) {
-      newErrors.email = true;
-    }
-
-    if (!formData.autorizacao) {
-      newErrors.autorizacao = true;
-    }
+    if (!formData.nome.trim()) newErrors.nome = true;
+    if (!formData.email.trim() || !isValidEmail(formData.email)) newErrors.email = true;
+    if (!formData.autorizacao) newErrors.autorizacao = true;
 
     setErrors(newErrors);
 
@@ -51,7 +46,7 @@ export default function NewsletterForm() {
     if (!validateForm()) {
       setFeedback({
         type: "error",
-        message: "Preencha corretamente os campos obrigatórios.",
+        message: t("erroCampos"),
       });
       return;
     }
@@ -60,7 +55,7 @@ export default function NewsletterForm() {
 
     setFeedback({
       type: "success",
-      message: "Inscrição realizada! Você receberá novidades sobre o projeto.",
+      message: t("sucessoNewsletter"),
     });
 
     setFormData({
@@ -75,12 +70,12 @@ export default function NewsletterForm() {
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
       <div className="form-group">
-        <label htmlFor="newsletter-nome">Nome *</label>
+        <label htmlFor="newsletter-nome">{t("nome")} *</label>
         <input
           id="newsletter-nome"
           name="nome"
           type="text"
-          placeholder="Digite seu nome"
+          placeholder={t("placeholderNome")}
           value={formData.nome}
           onChange={handleChange}
           className={errors.nome ? "input-error" : ""}
@@ -88,12 +83,12 @@ export default function NewsletterForm() {
       </div>
 
       <div className="form-group">
-        <label htmlFor="newsletter-email">E-mail *</label>
+        <label htmlFor="newsletter-email">{t("email")} *</label>
         <input
           id="newsletter-email"
           name="email"
           type="email"
-          placeholder="seuemail@exemplo.com"
+          placeholder={t("placeholderEmail")}
           value={formData.email}
           onChange={handleChange}
           className={errors.email ? "input-error" : ""}
@@ -115,11 +110,11 @@ export default function NewsletterForm() {
           checked={formData.autorizacao}
           onChange={handleChange}
         />
-        <span>Autorizo o recebimento de novidades sobre o projeto. *</span>
+        <span>{t("autorizoNewsletter")} *</span>
       </label>
 
       <button type="submit" className="primary-button">
-        Assinar newsletter →
+        {t("btnAssinar")} →
       </button>
 
       {feedback && (

@@ -132,3 +132,20 @@ button {
   pointer-events: none;
   z-index: 0;
 }
+.page-placeholder {
+  min-height: 100vh;
+  padding: 120px 24px;
+  background: #02060d;
+  color: #f5f7fb;
+}
+
+.page-placeholder h1 {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  letter-spacing: -0.06em;
+  margin-bottom: 16px;
+}
+
+.page-placeholder p {
+  color: #8d99ae;
+  font-size: 1.1rem;
+}

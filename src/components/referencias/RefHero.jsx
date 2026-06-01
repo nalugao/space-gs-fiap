@@ -1,19 +1,28 @@
+import { useLanguage } from "../context/LanguageContext";
 import "./refHero.css";
 
 export default function RefHero() {
+  const { t } = useLanguage();
+
   return (
     <header className="ref-hero">
       <div className="ref-hero-inner">
-        <p className="ref-hero-label">04 — Referências</p>
+        <p className="ref-hero-label">{t("refHeroLabel")}</p>
+
         <h1 className="ref-hero-title">
-          Base<br /><span className="ref-hero-accent">Científica</span>
+          {t("refHeroTitleBase")}
+          <br />
+          <span className="ref-hero-accent">
+            {t("refHeroTitleAccent")}
+          </span>
         </h1>
+
         <div className="ref-hero-divider" />
+
         <p className="ref-hero-description">
-          Todos os dados do Kessler Shield foram verificados contra fontes primárias —
-          agências espaciais, corretores especializados e literatura acadêmica revisada por pares.
-          Números incorretos foram corrigidos e sinalizados.
+          {t("refHeroDescription")}
         </p>
+
         <div className="ref-hero-tags">
           <span className="ref-hero-tag">ESA</span>
           <span className="ref-hero-tag">NASA</span>

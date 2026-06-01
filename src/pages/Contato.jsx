@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { useLanguage } from "../components/context/LanguageContext";
+
 import NewsletterForm from "../components/contact/NewsletterForm";
 import DonationForm from "../components/contact/DonationForm";
 
@@ -9,6 +11,7 @@ import "./contato.css";
 export default function Contato() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const [activeForm, setActiveForm] = useState("newsletter");
 
@@ -28,14 +31,11 @@ export default function Contato() {
   return (
     <main className="contact-page">
       <section className="contact-hero">
-        <span className="section-tag">Contato</span>
+        <span className="section-tag">{t("contatoTag")}</span>
 
-        <h1>Conecte-se com a missão Kessler Shield</h1>
+        <h1>{t("contatoTitulo")}</h1>
 
-        <p>
-          Receba novidades sobre o projeto, acompanhe os avanços da solução e
-          entre em contato para apoiar a causa contra o lixo espacial.
-        </p>
+        <p>{t("contatoTexto")}</p>
 
         <div className="contact-tabs">
           <button
@@ -43,7 +43,7 @@ export default function Contato() {
             className={activeForm === "newsletter" ? "tab-button active" : "tab-button"}
             onClick={() => handleChangeForm("newsletter")}
           >
-            Newsletter
+            {t("tabNewsletter")}
           </button>
 
           <button
@@ -51,7 +51,7 @@ export default function Contato() {
             className={activeForm === "doacao" ? "tab-button active" : "tab-button"}
             onClick={() => handleChangeForm("doacao")}
           >
-            Doação / Investimento
+            {t("tabDoacao")}
           </button>
         </div>
       </section>
@@ -60,14 +60,11 @@ export default function Contato() {
         <section id="newsletter" className="contact-section">
           <div className="contact-content">
             <div>
-              <span className="section-tag">Newsletter</span>
+              <span className="section-tag">{t("newsletterTag")}</span>
 
-              <h2>Receba atualizações da missão</h2>
+              <h2>{t("newsletterTitulo")}</h2>
 
-              <p>
-                Acompanhe lançamentos, resultados, estudos e novidades sobre o
-                desenvolvimento do Kessler Shield.
-              </p>
+              <p>{t("newsletterTexto")}</p>
             </div>
 
             <NewsletterForm />
@@ -79,14 +76,11 @@ export default function Contato() {
         <section id="doacao" className="contact-section">
           <div className="contact-content">
             <div>
-              <span className="section-tag">Investir na causa</span>
+              <span className="section-tag">{t("investirTag")}</span>
 
-              <h2>Apoie uma solução para proteger a órbita terrestre</h2>
+              <h2>{t("investirTitulo")}</h2>
 
-              <p>
-                Seja apoiador, investidor, parceiro acadêmico ou design partner
-                na fase de demonstração orbital do projeto.
-              </p>
+              <p>{t("investirTexto")}</p>
             </div>
 
             <DonationForm />

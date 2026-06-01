@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
 import { saveLead, isValidEmail } from "../../data/formStorage";
 
 export default function DonationForm() {
+  const { t } = useLanguage();
+
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -32,29 +35,12 @@ export default function DonationForm() {
   function validateForm() {
     const newErrors = {};
 
-    if (!formData.nome.trim()) {
-      newErrors.nome = true;
-    }
-
-    if (!formData.email.trim() || !isValidEmail(formData.email)) {
-      newErrors.email = true;
-    }
-
-    if (!formData.telefone.trim()) {
-      newErrors.telefone = true;
-    }
-
-    if (!formData.tipoInteresse) {
-      newErrors.tipoInteresse = true;
-    }
-
-    if (!formData.mensagem.trim()) {
-      newErrors.mensagem = true;
-    }
-
-    if (!formData.autorizacao) {
-      newErrors.autorizacao = true;
-    }
+    if (!formData.nome.trim()) newErrors.nome = true;
+    if (!formData.email.trim() || !isValidEmail(formData.email)) newErrors.email = true;
+    if (!formData.telefone.trim()) newErrors.telefone = true;
+    if (!formData.tipoInteresse) newErrors.tipoInteresse = true;
+    if (!formData.mensagem.trim()) newErrors.mensagem = true;
+    if (!formData.autorizacao) newErrors.autorizacao = true;
 
     setErrors(newErrors);
 
@@ -67,7 +53,7 @@ export default function DonationForm() {
     if (!validateForm()) {
       setFeedback({
         type: "error",
-        message: "Preencha corretamente os campos obrigatórios.",
+        message: t("erroCampos"),
       });
       return;
     }
@@ -76,7 +62,7 @@ export default function DonationForm() {
 
     setFeedback({
       type: "success",
-      message: "Mensagem enviada! Entraremos em contato sobre a causa.",
+      message: t("sucessoDoacao"),
     });
 
     setFormData({
@@ -96,12 +82,12 @@ export default function DonationForm() {
     <form className="contact-form" onSubmit={handleSubmit}>
       <div className="form-grid">
         <div className="form-group">
-          <label htmlFor="donation-nome">Nome *</label>
+          <label htmlFor="donation-nome">{t("nome")} *</label>
           <input
             id="donation-nome"
             name="nome"
             type="text"
-            placeholder="Digite seu nome"
+            placeholder={t("placeholderNome")}
             value={formData.nome}
             onChange={handleChange}
             className={errors.nome ? "input-error" : ""}
@@ -109,12 +95,12 @@ export default function DonationForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="donation-email">E-mail *</label>
+          <label htmlFor="donation-email">{t("email")} *</label>
           <input
             id="donation-email"
             name="email"
             type="email"
-            placeholder="seuemail@exemplo.com"
+            placeholder={t("placeholderEmail")}
             value={formData.email}
             onChange={handleChange}
             className={errors.email ? "input-error" : ""}
@@ -124,12 +110,12 @@ export default function DonationForm() {
 
       <div className="form-grid">
         <div className="form-group">
-          <label htmlFor="donation-telefone">Telefone *</label>
+          <label htmlFor="donation-telefone">{t("telefone")} *</label>
           <input
             id="donation-telefone"
             name="telefone"
             type="tel"
-            placeholder="(11) 99999-9999"
+            placeholder={t("placeholderTelefone")}
             value={formData.telefone}
             onChange={handleChange}
             className={errors.telefone ? "input-error" : ""}
@@ -137,7 +123,7 @@ export default function DonationForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="donation-tipo">Tipo de interesse *</label>
+          <label htmlFor="donation-tipo">{t("tipoInteresse")} *</label>
           <select
             id="donation-tipo"
             name="tipoInteresse"
@@ -145,34 +131,34 @@ export default function DonationForm() {
             onChange={handleChange}
             className={errors.tipoInteresse ? "input-error" : ""}
           >
-            <option value="">Selecione uma opção</option>
-            <option value="doacao">Doação</option>
-            <option value="investidor">Investidor</option>
-            <option value="design-partner">Design Partner</option>
-            <option value="parceria">Parceria acadêmica</option>
-            <option value="apoio-tecnico">Apoio técnico</option>
+            <option value="">{t("selecioneOpcao")}</option>
+            <option value="doacao">{t("opcaoDoacao")}</option>
+            <option value="investidor">{t("opcaoInvestidor")}</option>
+            <option value="design-partner">{t("opcaoDesignPartner")}</option>
+            <option value="parceria">{t("opcaoParceria")}</option>
+            <option value="apoio-tecnico">{t("opcaoApoioTecnico")}</option>
           </select>
         </div>
       </div>
 
       <div className="form-group">
-        <label htmlFor="donation-valor">Valor estimado ou forma de apoio</label>
+        <label htmlFor="donation-valor">{t("valor")}</label>
         <input
           id="donation-valor"
           name="valor"
           type="text"
-          placeholder="Ex: R$ 100, mentoria, tecnologia, divulgação..."
+          placeholder={t("placeholderValor")}
           value={formData.valor}
           onChange={handleChange}
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="donation-mensagem">Mensagem *</label>
+        <label htmlFor="donation-mensagem">{t("mensagem")} *</label>
         <textarea
           id="donation-mensagem"
           name="mensagem"
-          placeholder="Conte como deseja apoiar o projeto"
+          placeholder={t("placeholderMensagem")}
           value={formData.mensagem}
           onChange={handleChange}
           className={errors.mensagem ? "input-error" : ""}
@@ -194,11 +180,11 @@ export default function DonationForm() {
           checked={formData.autorizacao}
           onChange={handleChange}
         />
-        <span>Autorizo o contato da equipe Kessler Shield. *</span>
+        <span>{t("autorizoContato")} *</span>
       </label>
 
       <button type="submit" className="primary-button">
-        Enviar interesse →
+        {t("btnEnviarInteresse")} →
       </button>
 
       {feedback && (
